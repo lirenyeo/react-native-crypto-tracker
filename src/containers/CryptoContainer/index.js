@@ -1,12 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
 import FetchCoinData from '../../actions/FetchCoinData'
 import { CryptoItem, Loading } from '../../components'
 
 class CryptoContainer extends React.Component {
+  state = {
+    refreshing: false
+  }
+
   componentWillMount() {
     this.props.FetchCoinData()
+  }
+
+  _onRefresh = () => {
+    this.setState({refreshing: true})
+    this.props.FetchCoinData()
+      .then(() => {
+        this.setState({refreshing: false})
+      })
   }
 
   _keyExtractor = (item, index) => item.id
@@ -19,6 +31,8 @@ class CryptoContainer extends React.Component {
 
     return (
       <FlatList
+        onRefresh={() => this._onRefresh()}
+        refreshing={this.state.refreshing}
         data={data}
         keyExtractor={this._keyExtractor}
         renderItem={this._renderItem}

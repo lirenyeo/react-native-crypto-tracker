@@ -4,7 +4,7 @@ import { Header } from '../../components'
 import { CryptoContainer } from '../../containers'
 
 const MainScene = () => (
-  <View>
+  <View style={{flex: 1}}>
     <Header />
     <CryptoContainer />
   </View>
