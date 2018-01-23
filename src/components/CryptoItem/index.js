@@ -24,8 +24,8 @@ const {
     display: "flex",
     marginBottom: 20,
     borderBottomColor: "#e5e5e5",
-    borderBottomWidth: 3,
-    padding: 20
+    borderBottomWidth: 1,
+    padding: 20,
   },
   upperRow: {
     display: "flex",
@@ -33,17 +33,20 @@ const {
     marginBottom: 15
   },
   coinSymbol: {
+    color: 'white',
     marginTop: 10,
     marginLeft: 20,
     marginRight: 5,
     fontWeight: "bold",
   },
   coinName: {
+    color: 'white',
     marginTop: 10,
     marginLeft: 5,
     marginRight: 20
   },
   coinPrice: {
+    color: 'white',
     marginTop: 10,
     marginLeft: "auto",
     marginRight: 10,
@@ -54,12 +57,13 @@ const {
     height: 35,
   },
   moneySymbol: {
+    color: 'white',
     fontWeight: "bold",
   },
   statisticsContainer: {
     display: "flex",
     borderTopColor: "#FAFAFA",
-    borderTopWidth: 2,
+    borderTopWidth: .5,
     padding: 10,
     flexDirection: "row",
     justifyContent: "space-around"

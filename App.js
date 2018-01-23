@@ -2,8 +2,8 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Provider } from 'react-redux'
 
+import AppContainer from './src/AppContainer'
 import Store from './src/Store'
-import { MainScene } from './src/scenes'
 
 
 class App extends React.Component {
@@ -11,7 +11,7 @@ class App extends React.Component {
     return (
       <Provider store={Store}>
         <View style={styles.container}>
-          <MainScene />
+          <AppContainer />
         </View>
       </Provider>
     )
@@ -21,9 +21,6 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#dadada',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
 })
 
