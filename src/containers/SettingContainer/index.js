@@ -5,7 +5,12 @@ import { MenuListItem, SectionListHeader } from '../../components'
 
 class SettingContainer extends React.Component {
 
-  _renderItem = ({item, index}) => <MenuListItem item={item} index={index}/>
+  _renderItem = ({item, index}) =>
+    <MenuListItem
+      navigation={this.props.navigation}
+      item={item}
+      index={index}
+    />
 
   _renderSectionHeader = ({section}) => <SectionListHeader>{section.title}</SectionListHeader>
 
@@ -32,7 +37,7 @@ const sections = [
     title: 'User Interface',
     data: [
       {text: 'Set Language', icon: 'md-globe'},
-      {text: 'Choose Main Currency', icon: 'md-cash'},
+      {text: 'Choose Main Currency', icon: 'md-cash', navScreen: 'SettingCurrency'},
       {text: 'Use Dark Theme', toggle: true}
     ]
   },

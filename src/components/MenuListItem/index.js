@@ -4,37 +4,48 @@ import {
   Text,
   View,
   StyleSheet,
+  TouchableHighlight
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import Color from '../../constants/Color'
 
 class MenuListItem extends React.Component {
+
+  _handleNavigate = () => {
+    const {navigation, item} = this.props
+    if (item.navScreen) {
+      navigation.navigate(item.navScreen)
+    }
+  }
+
   render() {
     const {
       index,
       item: {
-        text, toggle, icon
+        text, toggle, icon, navigate, navScreen
       }
     } = this.props
 
     return (
-      <View style={[container, index == 0 ? borderTop : null]}>
-        <Text style={textStyle}>
-          {icon
-            ? <Text>
-                <Ionicons color={Color.primaryLight} name={icon} size={20} />{'   '}
-              </Text>
+      <TouchableHighlight disabled={!(navScreen)} onPress={this._handleNavigate}>
+        <View style={[container, index == 0 ? borderTop : null]}>
+          <Text style={textStyle}>
+            {icon
+              ? <Text>
+                  <Ionicons color={Color.primaryLight} name={icon} size={20} />{'   '}
+                </Text>
+              : null}
+            {text}
+          </Text>
+          {toggle
+            ? <Switch
+                onTintColor={Color.secondaryLight}
+                tintColor={Color.primaryLight}
+                thumbTintColor={Color.secondary}
+              />
             : null}
-          {text}
-        </Text>
-        {toggle
-          ? <Switch
-              onTintColor={Color.secondaryLight}
-              tintColor={Color.primaryLight}
-              thumbTintColor={Color.secondary}
-            />
-          : null}
-      </View>
+        </View>
+      </TouchableHighlight>
     )
   }
 }

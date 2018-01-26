@@ -3,9 +3,9 @@ import { View, StyleSheet } from 'react-native'
 import { SettingContainer } from '../../containers'
 import Color from '../../constants/Color'
 
-const SettingScene = () => (
+const SettingScene = ({navigation}) => (
   <View style={container}>
-    <SettingContainer />
+    <SettingContainer navigation={navigation}/>
   </View>
 )
 

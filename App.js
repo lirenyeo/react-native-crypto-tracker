@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Provider } from 'react-redux'
 
 import AppContainer from './src/AppContainer'
+import RootNavigator from './src/RootNavigator'
+import RootTabs from './src/RootTabs'
 import Store from './src/Store'
 
 
@@ -11,7 +13,7 @@ class App extends React.Component {
     return (
       <Provider store={Store}>
         <View style={styles.container}>
-          <AppContainer />
+          <RootNavigator />
         </View>
       </Provider>
     )
