@@ -1,57 +1,83 @@
 import React from 'react'
-import { FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
+import { List, ListItem, CheckBox,SearchBar } from 'react-native-elements'
+import Flag from 'react-native-flags'
 import { SelectableListItem } from '../../components'
+// import { Ionicons } from '@expo/vector-icons'
 
-class SettingCurrencyContainer extends React.PureComponent {
+const getFlag = country =>
+  <Flag
+    code={country}
+    size={32}
+  />
 
-  state = {selected: (new Map(): Map<string, boolean>)};
+class SettingCurrencyContainer extends React.Component {
+
+  state = {
+    searchText: "",
+    selected: (new Map(): Map<string, boolean>),
+    data: [
+      {key: 'DE', title: 'DE', selected: true},
+      {key: 'FR', title: 'FR', selected: true},
+      {key: 'GB', title: 'GB', selected: false},
+      {key: 'US', title: 'US', selected: false},
+      {key: 'GE', title: 'GE', selected: true},
+      {key: 'JP', title: 'JP', selected: true},
+    ],
+  }
+
+  _onChangeText = searchText => this.setState({searchText})
+
+  _onClearText = () => this.setState({searchText: ""})
 
   _keyExtractor = (item, index) => item.id
 
-  _onPressItem = (id: string) => {
-    // updater functions are preferred for transactional updates
-    this.setState((state) => {
-      // copy the map rather than modifying state.
-      const selected = new Map(state.selected);
-      selected.set(id, !selected.get(id)); // toggle
-      return {selected};
-    });
-  };
+  _onPressItem = key => {
+    const {data} = this.state
+    const selectedItem = data.find(i => i.key === key)
+    selectedItem.selected = !selectedItem.selected
 
-  _renderItem = ({item, index}) => {
-    return (
-      <SelectableListItem
-        id={item.id}
-        index={index}
-        pressEvent={this._onPressItem}
-        selected={!!this.state.selected.get(item.id)}
-      >
-        {item.title}
-      </SelectableListItem>
-    )
+    const otherItems = data.filter(i => i.key != key)
+    this.setState({
+      data: [...otherItems, selectedItem]
+    })
   }
 
-  render() {
-    console.log('state', this.state)
-    console.log('props', this.props)
-    return (
-      <FlatList
-        data={data}
-        extraData={this.state}
-        keyExtractor={this._keyExtractor}
-        renderItem={this._renderItem}
+    _renderItem = ({item, index}) => (
+      <ListItem
+        roundAvatar
+        key={item.key}
+        title={item.title}
+        avatar={getFlag(item.key)}
+        onPress={() => {this._onPressItem(item.key)}}
+        rightIcon={{name: 'done'}}
+        hideChevron={!item.selected}
       />
+    )
+
+  _renderHeader = () => (
+    <SearchBar
+      lightTheme
+      onChangeText={this._onChangeText}
+      onClearText={this._onClearText}
+      clearIcon={{name: 'clear'}}
+      placeholder='Type Here...'
+    />
+  )
+
+  render() {
+    return (
+      <List containerStyle={{marginTop: 0}}>
+        <FlatList
+          data={this.state.data}
+          extraData={this.state}
+          keyExtractor={this._keyExtractor}
+          renderItem={this._renderItem}
+          ListHeaderComponent={this._renderHeader}
+        />
+      </List>
     )
   }
 }
-
-const data = [
-  {id: '1', key: 'DE', title: 'DE'},
-  {id: '2', key: 'FR', title: 'FR'},
-  {id: '3', key: 'GB', title: 'GB'},
-  {id: '4', key: 'US', title: 'US'},
-  {id: '5', key: 'GE', title: 'GE'},
-  {id: '6', key: 'JP', title: 'JP'},
-]
 
 export default SettingCurrencyContainer

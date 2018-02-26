@@ -6,7 +6,7 @@ import { SettingCurrencyContainer } from './containers'
 import Color from './constants/Color'
 
 const withBackground = ScreenComponent => props => (
-  <View style={{ flex: 1, backgroundColor: Color.primaryDark}}>
+  <View style={{ flex: 1}}>
     <ScreenComponent {...props} />
   </View>
 )
